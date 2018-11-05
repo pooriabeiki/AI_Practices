@@ -111,6 +111,22 @@ def depthFirstSearch(problem):
 def breadthFirstSearch(problem):
     """Search the shallowest nodes in the search tree first."""
     "*** YOUR CODE HERE ***"
+    mystack = util.Queue()
+    closelist = []
+    firstState = problem.getStartState()
+    mystack.push((firstState, []))
+    while not mystack.isEmpty():
+        state = mystack.pop()
+
+        if problem.isGoalState(state[0]):
+            return state[1]
+        if state[0] not in closelist:
+            closelist.append(state[0])
+            for next in problem.getSuccessors(state[0]):
+                if next[0] not in closelist:
+                    result = state[1] + [next[1]]
+                    mystack.push((next[0], result))
+
     util.raiseNotDefined()
 
 def uniformCostSearch(problem):
