@@ -92,17 +92,19 @@ def depthFirstSearch(problem):
     firstState = problem.getStartState()
     mystack.push((firstState,[]))
     while not mystack.isEmpty():
+        # print mystack.list
+        # print closelist
+        # print "\n"
         state = mystack.pop()
+        closelist.append(state[0])
+        if problem.isGoalState(state[0]):
+            return state[1]
+
+
         for next in problem.getSuccessors(state[0]):
             if next[0] not in closelist:
-                result = state[1] + [next[1]];
-                if problem.isGoalState(next[0]):
-                    print 'goalfinded'
-                    return result
-
-                else:
-                    closelist.append(next[0])
-                    mystack.push((next[0],result))
+                result = state[1] + [next[1]]
+                mystack.push((next[0],result))
 
     util.raiseNotDefined()
 
