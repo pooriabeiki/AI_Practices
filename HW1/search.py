@@ -87,6 +87,23 @@ def depthFirstSearch(problem):
     print "Start's successors:", problem.getSuccessors(problem.getStartState())
     """
     "*** YOUR CODE HERE ***"
+    mystack = util.Stack()
+    closelist = []
+    firstState = problem.getStartState()
+    mystack.push((firstState,[]))
+    while not mystack.isEmpty():
+        state = mystack.pop()
+        for next in problem.getSuccessors(state[0]):
+            if next[0] not in closelist:
+                result = state[1] + [next[1]];
+                if problem.isGoalState(next[0]):
+                    print 'goalfinded'
+                    return result
+
+                else:
+                    closelist.append(next[0])
+                    mystack.push((next[0],result))
+
     util.raiseNotDefined()
 
 def breadthFirstSearch(problem):
